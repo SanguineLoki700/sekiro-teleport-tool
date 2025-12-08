@@ -22,7 +22,7 @@ class SekiroTrainerV2:
 
         self.root = ctk.CTk()
         self.root.title("Sekiro Teleport Manager")
-        self.root.geometry("550x600") # Aumentei um pouco
+        self.root.geometry("550x600") 
         self.root.resizable(False, False)
 
         self.load_locations_from_file()
@@ -138,12 +138,10 @@ class SekiroTrainerV2:
     def add_custom_location(self):
         name = self.entry_name.get()
         
-        # LÓGICA PREGUIÇOSA: Se não tiver nome, cria um automático
         if not name:
             count = len(self.saved_locations) + 1
             name = f"Location {count}"
         
-        # Evita sobrescrever sem querer (adiciona numero se ja existir)
         original_name = name
         i = 1
         while name in self.saved_locations:
@@ -171,11 +169,11 @@ class SekiroTrainerV2:
         new_name = dialog.get_input()
         
         if new_name and new_name != old_name:
-            # Pega a posição antiga
+            
             pos = self.saved_locations[old_name]
-            # Deleta a chave antiga
+            
             del self.saved_locations[old_name]
-            # Cria a nova
+            
             self.saved_locations[new_name] = pos
             self.save_locations_to_file()
             self.refresh_scroll_list()
@@ -188,21 +186,17 @@ class SekiroTrainerV2:
             item_frame = ctk.CTkFrame(self.scroll_frame)
             item_frame.pack(fill="x", pady=2, padx=5)
 
-            # Botão Teleport (Esquerda - Maior destaque)
             btn_tp = ctk.CTkButton(item_frame, text="GO", width=40, fg_color="#3498db", hover_color="#2980b9",
                                    command=lambda p=pos: self.teleport_to(p))
             btn_tp.pack(side="left", padx=5)
 
-            # Nome
             lbl = ctk.CTkLabel(item_frame, text=name, anchor="w", font=("Arial", 12, "bold"))
             lbl.pack(side="left", padx=5, fill="x", expand=True)
 
-            # Botão Rename (Lápis/Edit)
             btn_edit = ctk.CTkButton(item_frame, text="Edit", width=40, fg_color="#f39c12", hover_color="#d35400",
                                     command=lambda n=name: self.rename_location(n))
             btn_edit.pack(side="right", padx=2)
 
-            # Botão Delete
             btn_del = ctk.CTkButton(item_frame, text="X", width=30, fg_color="#c0392b", hover_color="#e74c3c",
                                     command=lambda n=name: self.delete_location(n))
             btn_del.pack(side="right", padx=2)
@@ -214,7 +208,6 @@ class SekiroTrainerV2:
         self.lbl_status = ctk.CTkLabel(self.root, text="Scanning...", font=("Arial", 12))
         self.lbl_status.pack()
 
-        # Quick Save Area
         quick_frame = ctk.CTkFrame(self.root)
         quick_frame.pack(fill="x", padx=20, pady=10)
         
@@ -222,7 +215,6 @@ class SekiroTrainerV2:
         self.lbl_info = ctk.CTkLabel(quick_frame, text="F5: Quick Save | F9: Quick Load", text_color="gray")
         self.lbl_info.pack(pady=5)
 
-        # Custom Save Area
         custom_frame = ctk.CTkFrame(self.root)
         custom_frame.pack(fill="both", expand=True, padx=20, pady=10)
 
@@ -235,7 +227,6 @@ class SekiroTrainerV2:
         btn_add = ctk.CTkButton(input_frame, text="Save Pos", command=self.add_custom_location, fg_color="#27ae60", hover_color="#2ecc71")
         btn_add.pack(side="right")
 
-        # Scrollable List
         ctk.CTkLabel(custom_frame, text="Saved Locations:", anchor="w").pack(fill="x", padx=15)
         
         self.scroll_frame = ctk.CTkScrollableFrame(custom_frame, height=200)
@@ -247,4 +238,5 @@ class SekiroTrainerV2:
         footer.pack(side="bottom", pady=5)
 
 if __name__ == "__main__":
+
     SekiroTrainerV2()
