@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+.pytest_cache/
+build/
+dist/
+*.spec
+locations*.json
+*.log
+.teleport.lock
+.appdata-migration.json
+backups/
+*connection-report*.json
